@@ -1,0 +1,245 @@
+\documentclass{article}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{svg}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+
+\title{Домашняя работа №1}
+\author{Калмыкова Мария, группа А-05-19}
+\date{08 апреля 2022 года}
+
+\begin{document}
+
+\maketitle
+
+\section{Задание №1. Построить конечный автомат, распознающий язык}
+1. $ L = \{\ w \in \{\ a, b, c\}^{*} | w_{c}| = 1$ \}\
+\begin{figure}[ht!]
+\vspace{2ex} 
+\centering
+\includesvg[width=0.8\linewidth]{graphviz.svg}
+\end{figure}
+
+2. $L = \{\ w \in \{\ a, b\}^{*} | w_{a}|  \leq 2 |w_{b}| \geq 2$ \}\
+\begin{figure}[ht!]
+\vspace{2ex} 
+\centering
+\includesvg[width=0.8\linewidth]{graphviz 1_2.svg}
+\end{figure}
+
+3. $L = \{\ w \in \{\ a, b\}^{*} | w_{a}|  \neq |w_{b}|\}\ \\ $
+Невозможно построить заданный автомат, т.к. он не регулярный. Воспользуемся леммой о разрастании:
+Т.к. язык $ \overline { \rm L } $ нереглярный, то и язык $L$ - нерегулярный.
+Покажем это: 
+$\\ a^{n}b^{n} \in \overline { \rm L }, |w| = 2n \geq n \\ xy = a^{i}a^{j}, i+j \leq n \\ w = a^{i}a^{j}a^{ni-j}b^{n} \notin \overline { \rm L } \\ $
+Ч.т.д.\\
+ 
+4. $L = \{\ w \in \{\ a, b\}^{*} ww = www\}\ \\ $
+Если $|w| > 0$, то $|ww| < |www|$. Тогда $ww \neq www$. Следовательно, язык представлен пустым словом.
+\begin{figure}[ht!]
+\vspace{2ex} 
+\centering
+\includesvg[width=0.8\linewidth]{graphviz 1_4.svg}
+\end{figure}
+
+\section{Задание №2. Построить конечный автомат, используя прямое произведение}
+1. $L_{1} = \{\ w \in \{\ a, b\}^{*} | w_{a}| \geq 2, |w_{b}| \geq 2 \}\ \\ $
+\begin{figure}[ht!]
+{\centering 
+\includesvg[width=0.8\linewidth]{graphviz 2_1(F).svg}
+\caption{Исходные ДКА}}
+\end{figure}
+$\\ \Sigma = \{\ a, b \}\ \\ $
+$Q = \{\ AD, AE, AF, BD, BE, BF, CD, CE, CF \}\ \\ $
+$s = AD \\ $
+$T = \{\ CF \}\ \\ $
+$ \delta (AD, a) \rightarrow BD \\
+ \delta (AD, b) \rightarrow AE \\
+ \delta (AE, a) \rightarrow BE \\
+ \delta (AE, b) \rightarrow AF \\
+ \delta (AF, a) \rightarrow BF \\
+ \delta (AF, b) \rightarrow AF \\
+ \delta (BD, a) \rightarrow CD \\
+ \delta (BD, b) \rightarrow BE \\
+ \delta (BE, a) \rightarrow CE \\
+ \delta (BE, b) \rightarrow BF \\
+ \delta (BF, a) \rightarrow CF \\
+ \delta (BF, b) \rightarrow BF \\
+ \delta (CD, a) \rightarrow CD \\
+ \delta (CD, b) \rightarrow CE \\
+ \delta (CE, a) \rightarrow CE \\
+ \delta (CE, b) \rightarrow CF \\
+ \delta (CF, a) \rightarrow CF \\
+ \delta (CF, b) \rightarrow CF \\$
+\begin{figure}[ht!]
+{\centering 
+\includesvg[width=0.8\linewidth]{graphviz 2_1(S).svg}
+\caption{Полученный ДКА}}
+\end{figure}
+
+2. $L_{2} = \{\ w \in \{\ a, b\}^{*} | w| \geq 3, |w| - $нечетное$ \}\ \\ $
+\begin{figure}[ht!]
+{\centering 
+\includesvg[width=0.8\linewidth]{graphviz 2_2(F).svg}
+\caption{Исходные ДКА}}
+\end{figure}
+
+$\\ \Sigma = \{\ a, b \}\ \\ $
+$Q = \{\ AE, AF, BE, BF, CE, CF, DE, DF \}\ \\ $
+$s = AE \\ $
+$T = \{\ DF \}\ \\ $
+$ \delta (AE, a) \rightarrow BF \\
+ \delta (AE, b) \rightarrow BF \\
+ \delta (AF, a) \rightarrow BE \\
+ \delta (AF, b) \rightarrow BE \\
+ \delta (BE, a) \rightarrow CF \\
+ \delta (BE, b) \rightarrow CF \\
+ \delta (BF, a) \rightarrow CE \\
+ \delta (BF, b) \rightarrow CE \\
+ \delta (CE, a) \rightarrow DF \\
+ \delta (CE, b) \rightarrow DF \\
+ \delta (CF, a) \rightarrow DE \\
+ \delta (CF, b) \rightarrow DE \\
+ \delta (DE, a) \rightarrow DF \\
+ \delta (DE, b) \rightarrow DF \\
+ \delta (DF, a) \rightarrow DE \\
+ \delta (DF, b) \rightarrow DE \\
+$
+\begin{figure}[ht!]
+{\centering 
+\vspace{2ex} 
+\includesvg[width=0.8\linewidth]{graphviz 2_2(S).svg}
+\caption{Полученный ДКА}}
+\end{figure}
+
+3. $L_{3} = \{\ w \in \{\ a, b\}^{*} | w_{a}| - $ четно $ |w_{b}| - $кратно 3 $ \}\ \\ $
+Исходные ДКА:
+\includesvg[width=0.8\linewidth]{graphviz 2_3(F).svg}
+$\\ \Sigma = \{\ a, b \}\ \\ $
+$Q = \{\ AC, AD, AE, BC, BD, BE \}\ \\ $
+$s = AC \\ $
+$T = \{\ AC \}\ \\ $
+$ \delta (AC, a) \rightarrow BC \\
+ \delta (AC, b) \rightarrow AD \\
+ \delta (AD, a) \rightarrow BD \\
+ \delta (AD, b) \rightarrow AE \\
+ \delta (AE, a) \rightarrow BE \\
+ \delta (AE, b) \rightarrow AC \\
+ \delta (BC, a) \rightarrow AC \\
+ \delta (BC, b) \rightarrow BD \\
+ \delta (BD, a) \rightarrow AD \\
+ \delta (BD, b) \rightarrow BE \\
+ \delta (BE, a) \rightarrow AE \\
+ \delta (BE, b) \rightarrow BC \\
+$
+\includesvg[width=0.8\linewidth]{graphviz 2_3(S).svg}
+
+4. $L_{4} =  \overline { \rm L_{3}} \\ $
+$\overline { \rm L_{3}} = \{\ \Sigma, Q, s, Q \backslash T, \delta \}\ \\$
+
+$\\ \Sigma = \{\ a, b \}\ \\ $
+$Q = \{\ AC, AD, AE, BC, BD, BE \}\ \\ $
+$s = AC \\ $
+$T = \{\ AD, AE, BC, BD, BE \}\ \\ $
+
+\begin{figure}[ht!]
+{\centering 
+\includesvg[width=0.8\linewidth]{graphviz 2_4(S).svg}
+\caption{Полученный ДКА}}
+\end{figure}
+
+5. $L_{5} =  L_{2} \ L_{3} = L_{2} \cap \overline { \rm L_{3}} \\ $
+
+\begin{figure}[ht!]
+{\centering 
+\includesvg[width=0.8\linewidth]{graphviz 2_5(F).svg}
+\caption{Исходные ДКА} }
+\end{figure}
+
+$\\ \Sigma = \{\ a, b \}\ \\ $
+$Q = \{\ AG, AH, AI, AJ, AK BG, BH, BI, BJ, BK, ... \}\ \\ $
+$s = AG \\ $
+$T = \{\ BJ, CJ, DJ, EJ, FJ \}\ \\ $
+
+\includesvg[width=1.0\linewidth]{graphviz 2_5(S).svg}
+
+\section{Задание №3. Построить минимальный ДКА по заданному регулярному выражению}
+1. ${(ab + aba)}^{*}a$
+
+Полученный НКА:
+
+\begin{figure}[ht!]
+{\centering 
+\vspace{2ex} 
+\includesvg[width=0.8\linewidth]{graphviz 3_1(F).svg}
+\caption{НКА}}
+\end{figure}
+
+Построение ДКА по заданному НКА:
+
+\begin{figure1}[ht!]
+{\centering 
+\vspace{2ex} 
+\includesvg[width=0.8\linewidth]{graphviz 3_1(S).svg}
+\caption{Полученный ДКА}}
+\end{figure1}
+
+2. ${a(a{(ab)}^{*}b)}^{*}{(ab)}^{*}$
+
+Полученный НКА:
+
+\begin{figure}[ht!]
+{\centering 
+\vspace{2ex} 
+\includesvg[width=0.8\linewidth]{graphviz 3_2(F).svg}
+\caption{Полученный НКА}}
+\end{figure}
+
+Построение ДКА по заданному НКА:
+
+\includesvg[width=0.8\linewidth]{graphviz 3_2(S).svg}
+
+Минимизируем полученный ДКА:
+
+\includesvg[width=0.8\linewidth]{graphviz 3_2(M).svg}
+
+3. ${(a+(a+b)(a+b)b)}^{*}$
+
+Полученный НКА:
+
+\begin{figure}[ht!]
+{\centering 
+\vspace{2ex} 
+\includesvg[width=0.8\linewidth]{graphviz 3_3(F).svg}
+\caption{НКА}}
+\end{figure}
+
+Построение ДКА по заданному НКА:
+
+\includesvg[width=0.8\linewidth]{graphviz 3_3(S).svg}
+
+\section{Задание №4. Определить, является ли язык регулярным или нет}
+
+\begin{textblock}
+1. $L = \{ (aab)^{n}b(aba)^{m} | n \geq 0, m \geq 0 \} \\$
+Язык регулярный.
+\includesvg[width=0.8\linewidth]{graphviz 4_1.svg}
+
+2. $L = \{ (uaav) | u \in \{ a, b \}^{*}, v \in \{ a, b \}^{*}, |u_{b}| \geq |v_{a}| \} \\$
+$w = b^{n}aaa^{n}, |w| \geq n \\ w = xyz \\ x = b^{i}, y = b^{j}, i+j \leq n, j > 0 \\ z = b^{n-i-j}aaa^{n} \\ |xy| \leq n, |y| > 0 \\ xy^{0}z = b^{i}b^{n-i-j}aaa^{n} \notin L \\ $
+
+3. $L = \{ a^{m}w | w \in \{ a, b \}^{*},1 \leq |w_{b}| \leq m \} \\
+w = a^{n}b^{n}, |w| \geq n \\ w = xyz \\ x = a^{i}, y = a^{j}, i+j \leq n, j > 0 \\ z = a^{n-i-j}b^{n} \\ |xy| \leq n, |y| > 0 \\ xy^{0}z = a^{i}a^{n-i-j}b^{n} \notin L \\ $
+
+4. $L = \{ a^{k}b^{m}a^{n} | k = n \or m > 0 \} \\
+w = a^{n}b a^{n}, |w| \geq n \\ w = xyz \\ x = a^{i}, y = a^{j}, i+j \leq n, j > 0 \\ z = a^{n-i-j}ba^{n} \\ |xy| \leq n, |y| > 0 \\ xy^{k}z = a^{i}a^{jk}a^{n--i-j}ba^{n} = a^{n+(1-k)j}ba^{n} \notin L \ \ \forall k > 1 \\ $
+
+5. $L = \{ ucv | u \in \{ a, b \}^{*}, v \in \{ a, b \}^{*}, u \neq v^{R} \} \\ w = {(ab)}^{n}c{(ba)}^{n} = \alpha_{1} \alpha_{2} ... \alpha_{4n+1}, |w| \geq n \\ w = xyz \\ x = \alpha_{1}... \alpha_{i}, y = \alpha_{i+1} ... \alpha_{i+j}, i+j \leq n, j > 0 \\ z = \alpha_{i+j+1} ... \alpha_{2n} c {(ba)}^{n} \\ |xy| \leq n, |y| > 0 \\ 
+xy^{k}z = \alpha_{1}... \alpha_{i} {(\alpha_{i+1}... \alpha_{i+j})}^{k} \alpha_{i+j+1}... \alpha_{2n} c {(ba)}^{n} \notin L \ \ \forall k > 1 \\ $
+\end{textblock}
+
+\end{document}
